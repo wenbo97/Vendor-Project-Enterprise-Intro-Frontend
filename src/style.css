@@ -1,0 +1,192 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  margin: 0 auto;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+/* 代码块基础样式 */
+pre {
+  
+  color: #fff;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+pre:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding:0 !important;
+}
+
+/* 语法高亮颜色配置 */
+.hljs {
+  color: #cdd6f4 !important; /* 主文本颜色 */
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a6adc8 !important; /* 注释颜色 */
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #b15ef2 !important; /* 关键字颜色 */
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #c99100 !important; /* 数字/变量颜色 */
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #a6e3a1 !important; /* 字符串颜色 */
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #89b4fa !important; /* 标题/选择器颜色 */
+  font-weight: bold;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #f9e2af !important; /* 类型/类名颜色 */
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #c99100 !important; /* HTML标签/属性颜色 */
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #cba6f7 !important; /* 正则表达式/链接颜色 */
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #94e2d5 !important; /* 符号颜色 */
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #f29d79 !important; /* 内置函数颜色 */
+}
+
+.hljs-meta {
+  color: #b4befe !important; /* 元数据颜色 */
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #f38ba820 !important; /* 删除线背景 */
+}
+
+.hljs-addition {
+  background: #a6e3a120 !important; /* 添加线背景 */
+}
+.function_{
+  color: #f29d79 !important;
+}
+
+/* 行号样式 */
+pre {
+  counter-reset: line;
+}
+
+pre .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2em;
+  padding-right: 1em;
+  text-align: right;
+  color: rgba(166, 173, 200, 0.5);
+  border-right: 1px solid rgba(166, 173, 200, 0.2);
+  margin-right: 1em;
+}
