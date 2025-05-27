@@ -20,10 +20,10 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 !important;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f0f2f5;
+  background-color: #fff;
 }
 
 h1 {
