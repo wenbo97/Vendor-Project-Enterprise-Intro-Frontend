@@ -1,21 +1,6 @@
 <template>
   <div class="chat-container">
-    <div class="header">
-      <div class="img"></div>
-      <el-input
-        v-model="inputText"
-        style="width: 30%"
-        size="large"
-        placeholder="Please Input"
-        :suffix-icon="Search"
-      />
-      <div class="action">
-        <el-icon style="margin: 0 30px 0 0; cursor: pointer"
-          ><ShoppingCart
-        /></el-icon>
-        <el-icon @click="drawer = true" style="cursor: pointer"><Fold /></el-icon>
-      </div>
-    </div>
+    
     <div class="bg"></div>
     <div class="categories">
       <div class="once">
@@ -56,7 +41,7 @@
       <li class="list-block" v-for="(item, index) in listData" :key="index">
         <div class="list-banner">
           <img :src="item.imgUrl" alt="">
-          <div class="list-action">
+          <div class="list-action" @click="goDetail(item)">
             RAPIDE
           </div>
         </div>
@@ -66,15 +51,14 @@
         </div>
       </li>
     </ul>
-    <el-drawer v-model="drawer" title="Catégories">
-      <span>Hi there!</span>
-    </el-drawer>
+    
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { Search, ShoppingCart, Fold } from "@element-plus/icons-vue";
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const inputText = ref("");
 const listData = ref([
   {
@@ -115,13 +99,13 @@ const listData = ref([
   },
 
 ])
-const drawer = ref(false)
+
+
 const animationFn = () => {// 视口观察器配置
   const listItems = document.querySelectorAll('.list-block');
-  console.log(listItems,'123131')
   const observerOptions = {
     threshold: 0.1, // 元素可见10%时触发
-    rootMargin: '0px 0px -30% 0px' // 提前30%视口高度触发
+    rootMargin: '0px 0px -10% 0px' // 提前30%视口高度触发
   };
   
   // 初始化观察器
@@ -142,54 +126,22 @@ const animationFn = () => {// 视口观察器配置
     observer.observe(item);
   });
 }
+const goDetail = (item) =>{
+  router.push(
+    { path: '/detail', query: { id:'123213' } }
+  )
+}
 onMounted(() => {
   animationFn()
 });
 </script>
 
 <style lang="scss" scoped>
-// 定义断点变量
-$msm: 500px;
-$sm: 600px;
-$md: 900px;
 
-// 定义媒体查询混合器
-@mixin respond-to($breakpoint) {
-  @if $breakpoint == "sm" {
-    @media (max-width: $sm) {
-      @content;
-    }
-  } @else if $breakpoint == "msm" {
-    @media (max-width: $msm) {
-      @content;
-    }
-  } @else if $breakpoint == "md" {
-    @media (min-width: $md) {
-      @content;
-    }
-  }
-}
 
 .chat-container {
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 80px;
-    background: #fff;
-    padding: 0 20px;
-    @media screen and (max-width: 768px) {
-      min-height: 60px;
-    }
-    .img {
-      width: 60px;
-      height: 60px;
-      background: #000;
-    }
-    .action {
-      font-size: 20px;
-    }
-  }
+  
+  
   .bg {
     width: 100%;
     height: 500px;
@@ -377,5 +329,6 @@ $md: 900px;
       visibility: visible;
     }
   }
+  
 }
 </style>

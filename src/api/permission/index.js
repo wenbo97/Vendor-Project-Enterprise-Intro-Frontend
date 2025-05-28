@@ -2,15 +2,25 @@
 import axiosInstance from '@/requestInstance/axios';
 const test = [
   {
-    "name": "AIMain",
+    "name": "root",
     "path": "/",
     "permission": true,
-    "redirect": { "name": "chat" },
+    "redirect": { "name": "main" },
     "children": [
       {
-        "path": "chat",
-        "name": "chat",
+        "path": "",
+        "name": "main",
         "permission": true
+      },
+      {
+        "path": "detail",
+        "name": "detail",
+        "permission": true,
+      },
+      {
+        "path": "categories",
+        "name": "categories",
+        "permission": true,
       }
     ]
   },

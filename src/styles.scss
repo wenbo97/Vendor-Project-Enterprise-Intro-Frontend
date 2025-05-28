@@ -16,7 +16,27 @@ $path-color: #3b82f6;
 //   --code-bg: #f8fafc;
 //   --path-color: #3b82f6;
 // }
+// 定义断点变量
+$msm: 500px;
+$sm: 600px;
+$md: 900px;
 
+// 定义媒体查询混合器
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (max-width: $sm) {
+      @content;
+    }
+  } @else if $breakpoint == "msm" {
+    @media (max-width: $msm) {
+      @content;
+    }
+  } @else if $breakpoint == "md" {
+    @media (min-width: $md) {
+      @content;
+    }
+  }
+}
 * {
   margin: 0;
   padding: 0;
