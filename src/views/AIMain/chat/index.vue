@@ -13,7 +13,7 @@
         <el-icon style="margin: 0 30px 0 0; cursor: pointer"
           ><ShoppingCart
         /></el-icon>
-        <el-icon style="cursor: pointer"><Fold /></el-icon>
+        <el-icon @click="drawer = true" style="cursor: pointer"><Fold /></el-icon>
       </div>
     </div>
     <div class="bg"></div>
@@ -47,6 +47,28 @@
         </div>
       </div>
     </div>
+    <div class="tendeces-title">
+      <span class="line"></span>
+      <span style="margin:0 32px 0">tendeces</span>
+      <span class="line"></span>
+    </div>
+    <ul class="list">
+      <li class="list-block" v-for="(item, index) in listData" :key="index">
+        <div class="list-banner">
+          <img :src="item.imgUrl" alt="">
+          <div class="list-action">
+            RAPIDE
+          </div>
+        </div>
+        <div class="list-nection">
+          <p>garant extreme</p>
+          <p>50.00 DT</p>
+        </div>
+      </li>
+    </ul>
+    <el-drawer v-model="drawer" title="Catégories">
+      <span>Hi there!</span>
+    </el-drawer>
   </div>
 </template>
 
@@ -54,11 +76,80 @@
 import { ref, onMounted } from "vue";
 import { Search, ShoppingCart, Fold } from "@element-plus/icons-vue";
 const inputText = ref("");
-onMounted(() => {});
+const listData = ref([
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+  {
+    imgUrl: 'https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp'
+  },
+
+])
+const drawer = ref(false)
+const animationFn = () => {// 视口观察器配置
+  const listItems = document.querySelectorAll('.list-block');
+  console.log(listItems,'123131')
+  const observerOptions = {
+    threshold: 0.1, // 元素可见10%时触发
+    rootMargin: '0px 0px -30% 0px' // 提前30%视口高度触发
+  };
+  
+  // 初始化观察器
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      console.log(entry)
+      if (entry.isIntersecting) {
+        // 元素进入视口时添加动画类
+        entry.target.classList.add('list-block-visible');
+        // 只触发一次，避免重复动画
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  // 观察所有列表项
+  listItems.forEach(item => {
+    observer.observe(item);
+  });
+}
+onMounted(() => {
+  animationFn()
+});
 </script>
 
 <style lang="scss" scoped>
 // 定义断点变量
+$msm: 500px;
 $sm: 600px;
 $md: 900px;
 
@@ -66,6 +157,10 @@ $md: 900px;
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "sm" {
     @media (max-width: $sm) {
+      @content;
+    }
+  } @else if $breakpoint == "msm" {
+    @media (max-width: $msm) {
       @content;
     }
   } @else if $breakpoint == "md" {
@@ -188,6 +283,99 @@ $md: 900px;
     }
   }
   .action {
+  }
+  .tendeces-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Cairo, Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.334;
+    color: rgba(0, 0, 0, 0.87);
+    .line {
+      display: inline-block;
+      width: 5rem;
+      height: 1px;
+      background-color: rgb(156 163 175);
+    }
+  }
+  .list{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    
+    .list-block{
+      position: relative;
+      transition: all 2s cubic-bezier(0.16, 1, 0.3, 1); 
+      transform: translateY(50px);
+      opacity: 0;
+      visibility: hidden;
+      min-height: 270px;
+      width: 25%;
+      
+      @include respond-to("sm") {
+        width: 33.333%;
+        
+      }
+      @include respond-to("msm") {
+        width: 50%;
+        
+      }
+      .list-banner {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        img {
+          display: block;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+          width: 100%;
+          object-fit: cover;
+          transition: transform 2s;
+          transform: scale(1);
+          cursor: pointer;
+          max-width: 100%;
+          height: auto;
+          &:hover {
+            transform: scale(1.05);
+            + .list-action {
+              top: 115px;
+              opacity: 1;
+            }
+          }
+        }
+        .list-action{
+          display: inline-block;
+          padding: 10px;
+          width: 160px;
+          background:#fff;
+          position: absolute;
+          color: #000;
+          top: 0;
+          left:0;
+          right: 0;
+          z-index:1;
+          margin:0 auto;
+          border-radius: 20px;
+          transition: all 0.5s;
+          opacity: 0;
+          &:hover{
+            top: 115px;
+            opacity: 1;
+          }
+        }
+      }
+    } 
+    .list-block-visible {
+      /* 激活状态：恢复原位并显示 */
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 </style>
