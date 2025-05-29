@@ -61,8 +61,9 @@ const categoriesListData = ref([
 ])
 const goCategories = (item) => {
   router.push(
-    { path: '/categories', query: { id:'123213' } }
+    { path: '/categories', query: { id: item.value } }
   )
+  drawer.value = false
 }
 const goMain = () => {
   router.push(
