@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <div class="img"></div>
+      <div class="img" @click="goMain"></div>
       <el-input
         v-model="inputText"
         style="width: 30%"
@@ -22,7 +22,7 @@
     </div>
    <el-drawer v-model="drawer" title="Catégories">
       <ul class="categories-list">
-        <li class="categories-list-block" v-for="(item,index) in categoriesListData" :key="index">
+        <li class="categories-list-block" v-for="(item,index) in categoriesListData" :key="index" @click="goCategories(item)">
           {{item.label}}
         </li>
       </ul>
@@ -32,7 +32,10 @@
 
 <script setup>
 import { Search, ShoppingCart, Fold } from "@element-plus/icons-vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const inputText = ref('')
 const drawer = ref(false)
 const categoriesListData = ref([
   {
@@ -56,6 +59,16 @@ const categoriesListData = ref([
     value:"five"
   }
 ])
+const goCategories = (item) => {
+  router.push(
+    { path: '/categories', query: { id:'123213' } }
+  )
+}
+const goMain = () => {
+  router.push(
+    { path: '/' }
+  )
+}
 </script>
 
 <style lang="scss" scoped>

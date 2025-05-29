@@ -10,21 +10,21 @@
     >
       <swiper-slide
         ><img
-          src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide
+          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
       ><swiper-slide
         ><img
-          src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide
+          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
       ><swiper-slide
         ><img
-          src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide
+          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
       ><swiper-slide
         ><img
-          src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide
+          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
       ><swiper-slide
         ><img
-          src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide
+          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
       ><swiper-slide
-        ><img src="https://swiperjs.com/demos/images/nature-6.jpg"
+        ><img src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp"
       /></swiper-slide>
     </swiper>
     <div class="description">
@@ -99,7 +99,7 @@ import "swiper/css/navigation";
 import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 const modules = [EffectFlip, Pagination, Navigation];
 const position = ref('left')
-const collapse = ref('')
+const collapse = ref(['1','2','3','4'])
 const onSwiper = (swiper) => {
   console.log(swiper);
 };
@@ -112,9 +112,9 @@ const onSlideChange = () => {
 .swiper {
   width: 500px;
   height: 500px;
-  padding: 50px;
   transform-style: preserve-3d;
   margin: auto;
+  border-radius: 50%;
   @include respond-to("sm") {
     width: 300px;
     height: 300px;
@@ -130,6 +130,7 @@ const onSlideChange = () => {
   background-size: cover;
   width: 500px;
   height: 500px;
+  border-radius: 50%;
   @include respond-to("sm") {
     width: 300px;
     height: 300px;
@@ -147,6 +148,7 @@ const onSlideChange = () => {
 .swiper-slide img {
   display: block;
   width: 100%;
+  border-radius: 50%;
 }
 .detail {
     .description {
