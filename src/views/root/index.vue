@@ -39,24 +39,28 @@ const inputText = ref('')
 const drawer = ref(false)
 const categoriesListData = ref([
   {
-    label:"第一分类",
-    value:"one"
+    label:"KILLA",
+    value:"KILLA"
   },
   {
-    label:"第二分类",
-    value:"two"
+    label:"PABLO",
+    value:"PABLO"
   },
   {
-    label:"第三分类",
-    value:"three"
+    label:"VELO_EU",
+    value:"VELO_EU"
   },
   {
-    label:"第四分类",
-    value:"four"
+    label:"VELO_EU_v2",
+    value:"VELO_EU_v2"
   },
   {
-    label:"第五分类",
-    value:"five"
+    label:"VELO_US",
+    value:"VELO_US"
+  },
+  {
+    label:"ZYN_EU",
+    value:"ZYN_EU"
   }
 ])
 const goCategories = (item) => {

@@ -3,7 +3,7 @@
     <ul class="list">
       <li class="list-block" v-for="(item, index) in listData" :key="index">
         <div class="list-banner">
-          <img :src="item.imgUrl" alt="" />
+          <img :src="getImageUrl(item)" alt="" />
           <div class="list-action" @click="goDetail(item)">RAPIDE</div>
         </div>
         <div class="list-nection">
@@ -54,6 +54,25 @@ const animationFn = () => {
     observer.observe(item);
   });
 };
+const getImageUrl = (item) => {
+  try {
+    if (!item.documentUrl) {
+      return item.imgUrl
+    }
+    const imageModules = import.meta.glob(
+      `/src/assets//**/*.{png,jpg,jpeg,gif}`,
+      { eager: true }
+    );
+    const imageMap = {};
+    Object.entries(imageModules).forEach(([path, module]) => {
+      const relativePath = path.replace("/src/assets/", "");
+      imageMap[relativePath] = module.default;
+    });
+    return imageMap[`${item.documentUrl}/${item.imgUrl}.png`];
+  } catch (error) {
+    console.error("图片加载失败:", error);
+  }
+};
 // 深度监听对象prop
 watch(
   () => listData.value,
@@ -102,13 +121,14 @@ watch(
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center center;
-          width: 100%;
+          width: 80%;
           object-fit: cover;
           transition: transform 2s;
           transform: scale(1);
           cursor: pointer;
           max-width: 100%;
           height: auto;
+          margin: auto;
           &:hover {
             transform: scale(1.05);
             + .list-action {
