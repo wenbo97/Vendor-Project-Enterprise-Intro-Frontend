@@ -8,7 +8,7 @@ const highlightLangDir = path.resolve(
   __dirname,
   'node_modules/highlight.js/lib/languages'
 );
-console.log(highlightLangDir,'highlightLangDir')
+console.log(highlightLangDir, 'highlightLangDir')
 const languageFiles = fs
   .readdirSync(highlightLangDir)
   .filter((file) => file.endsWith('.js'))
@@ -45,7 +45,7 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: { 
+      scss: {
         api: 'modern-compiler',
         additionalData: `@use "@/styles.scss" as *;`
       },
@@ -64,7 +64,7 @@ export default defineConfig({
       output: {
         // 使用 assetsInclude 排除图片文件
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.png')) {
+          if (assetInfo.name.endsWith('.png') || assetInfo.name.endsWith('.webp')) {
             return 'images/[name][extname]'; // 不添加 hash，但保持文件名不变
           }
           return 'assets/[name]-[hash][extname]'; // 其他资源添加 hash
