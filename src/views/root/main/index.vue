@@ -33,32 +33,20 @@
       </swiper>
     </div>
     <div class="categories">
-      <div class="once">
-        <img
-          src="@/assets/preImg/one.webp"
-          alt=""
-        />
+      <div class="once" @click="geCategories('PABLO')">
+        <img src="@/assets/preImg/one.webp" alt="" />
       </div>
       <div class="second">
         <div class="second-block">
-          <div class="image" style="margin: 0 0 20px 0">
-            <img
-              src="@/assets/preImg/two.webp"
-              alt=""
-            />
+          <div  @click="geCategories('KILLA')" class="image" style="margin: 0 0 20px 0">
+            <img src="@/assets/preImg/two.webp" alt="" />
           </div>
-          <div class="image">
-            <img
-              src="@/assets/preImg/three.webp"
-              alt=""
-            />
+          <div  @click="geCategories('VELO_EU')" class="image">
+            <img src="@/assets/preImg/three.webp" alt="" />
           </div>
         </div>
-        <div class="third">
-          <img
-            src="@/assets/preImg/four.webp"
-            alt=""
-          />
+        <div class="third"  @click="geCategories('ZYN_EU')">
+          <img src="@/assets/preImg/four.webp" alt="" />
         </div>
       </div>
     </div>
@@ -81,6 +69,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import commonList from "@components/commonList/index.vue";
+import { getBeverageQuery } from "@/api/business/index.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
@@ -163,9 +152,11 @@ const bannerList = ref([
   },
 ]);
 const goDetail = (item) => {
-  router.push({ path: "/detail", query: { id: "123213" } });
+  router.push({ path: "/detail", query: { id: item.id } });
 };
-
+const geCategories = (item) => {
+  router.push({ path: "/categories", query: { id: item } });
+};
 const setThumbsSwiper = (swiper) => {
   thumbsSwiper.value = swiper;
 };
@@ -180,12 +171,36 @@ const getImageUrl = (name, type = "banner") => {
       const relativePath = path.replace("/src/assets/", "");
       imageMap[relativePath] = module.default;
     });
-    return imageMap[`${type}/${name}.png`];
+    return imageMap[`${type.toUpperCase()}/${name}.png`];
   } catch (error) {
     console.error("图片加载失败:", error);
   }
 };
-onMounted(() => {});
+const fetchData = async () => {
+  const params = {
+    condition: {
+      // id: "683bf5ac267e5e62a273c1e8",
+      // item_id: "1",
+      // item_name: "Polar Mint",
+      // category: "killa",
+      // item_name_fuzzy: "mint",
+      // mg_weight_per_box_fuzzy: "12.8mg",
+      // wet_method_fuzzy: "45",
+      // inner_bag_type_fuzzy: "V-notch",
+      // box_type_fuzzy: "tri-fold",
+      // carton_box_fuzzy: "240X3",
+      // quantity_pcs_fuzzy: "720",
+      // category_fuzzy: "kil",
+    },
+    skip: 0,
+    limit: 12,
+  };
+  const res = await getBeverageQuery(params);
+  listData.value = res.values
+};
+onMounted(() => {
+  fetchData()
+});
 </script>
 
 <style lang="scss" scoped>

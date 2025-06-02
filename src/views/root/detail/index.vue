@@ -1,91 +1,51 @@
 <template>
   <div class="detail">
-    <swiper
-      :effect="'flip'"
-      :grabCursor="true"
-      :navigation="true"
-      :loop="true"
-      :modules="modules"
-      class="mySwiper"
-    >
-      <swiper-slide
-        ><img
-          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
-      ><swiper-slide
-        ><img
-          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
-      ><swiper-slide
-        ><img
-          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
-      ><swiper-slide
-        ><img
-          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
-      ><swiper-slide
-        ><img
-          src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp" /></swiper-slide
-      ><swiper-slide
-        ><img src="https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp"
-      /></swiper-slide>
-    </swiper>
-    <div class="description">
-      <el-collapse 
-        v-model="collapse" 
-        @change="handleChange"
-        :expand-icon-position="position"
-    >
-        <el-collapse-item title="force" name="1">
-          <div>
-            Consistent with real life: in line with the process and logic of
-            real life, and comply with languages and habits that the users are
-            used to;
-          </div>
-          <div>
-            Consistent within interface: all elements should be consistent, such
-            as: design style, icons and texts, position of elements, etc.
-          </div>
-        </el-collapse-item>
-        <el-collapse-item title="saveur" name="2">
-          <div>
-            Operation feedback: enable the users to clearly perceive their
-            operations by style updates and interactive effects;
-          </div>
-          <div>
-            Visual feedback: reflect current state by updating or rearranging
-            elements of the page.
-          </div>
-        </el-collapse-item>
-        <el-collapse-item title="nicotine(mg/sachet)" name="3">
-          <div>
-            Simplify the process: keep operating process simple and intuitive;
-          </div>
-          <div>
-            Definite and clear: enunciate your intentions clearly so that the
-            users can quickly understand and make decisions;
-          </div>
-          <div>
-            Easy to identify: the interface should be straightforward, which
-            helps the users to identify and frees them from memorizing and
-            recalling.
-          </div>
-        </el-collapse-item>
-        <el-collapse-item title="format" name="4">
-          <div>
-            Decision making: giving advices about operations is acceptable, but
-            do not make decisions for the users;
-          </div>
-          <div>
-            Controlled consequences: users should be granted the freedom to
-            operate, including canceling, aborting or terminating current
-            operation.
-          </div>
-        </el-collapse-item>
-      </el-collapse>
+    <div v-if="!loading && detailInfo?.id">
+      <swiper
+        v-if="!loading"
+        :effect="'flip'"
+        :grabCursor="true"
+        :navigation="true"
+        :loop="true"
+        :modules="modules"
+        class="mySwiper"
+      >
+        <swiper-slide>
+          <img :src="getImageUrl(detailInfo)" />
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="getImageUrl(detailInfo)" />
+        </swiper-slide>
+      </swiper>
+      <div class="description">
+        <el-collapse
+          @change="handleChange"
+          :expand-icon-position="position"
+          v-if="!loading"
+        >
+          <el-collapse-item
+            v-for="(item, index) in collapseSets"
+            :key="index"
+            :title="item"
+            :name="item"
+          >
+            <div>
+              {{ detailInfo[item] }}
+            </div>
+          </el-collapse-item>
+        </el-collapse>
+        
+      </div>
     </div>
+    <el-skeleton v-if="loading" :rows="7" animated />
+    <el-empty v-if="!loading && !detailInfo?.id" :image-size="200" />
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref, onMounted, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { getBeverageQuery } from "@/api/business/index.js";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 
@@ -98,20 +58,89 @@ import "swiper/css/navigation";
 // import required modules
 import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 const modules = [EffectFlip, Pagination, Navigation];
-const position = ref('left')
-const collapse = ref(['1','2','3','4'])
+const position = ref("left");
+const router = useRouter();
+const route = useRoute();
+const loading = ref(false);
+const detailInfo = ref({});
+const collapseSets = ref([]);
 const onSwiper = (swiper) => {
   console.log(swiper);
 };
 const onSlideChange = () => {
   console.log("slide change");
 };
+const fetchData = async () => {
+  try {
+    const id = route.query.id;
+    const itemName = route.query.name;
+    loading.value = true;
+    detailInfo.value = {};
+    collapseSets.value = [];
+    const params = {
+      condition: {
+        id: id,
+        // item_id: id,
+        item_name: itemName,
+        // category: id,
+        // item_name_fuzzy: "mint",
+        // mg_weight_per_box_fuzzy: "12.8mg",
+        // wet_method_fuzzy: "45",
+        // inner_bag_type_fuzzy: "V-notch",
+        // box_type_fuzzy: "tri-fold",
+        // carton_box_fuzzy: "240X3",
+        // quantity_pcs_fuzzy: "720",
+        // category_fuzzy: "kil",
+      },
+      skip: 0,
+      limit: 1000,
+    };
+    const res = await getBeverageQuery(params);
+    const info = res.values[0]
+    detailInfo.value = info;
+    collapseSets.value = Object.keys(info || {}) ;
+  } catch (error) {
+    console.error(error);
+  }
+  loading.value = false;
+};
+const getImageUrl = (item) => {
+  try {
+    if (!item.category) {
+      return item.imageId;
+    }
+    const realCategory = item.category.toUpperCase();
+    const imageModules = import.meta.glob(
+      `/src/assets//**/*.{png,jpg,jpeg,gif}`,
+      { eager: true }
+    );
+    const imageMap = {};
+    Object.entries(imageModules).forEach(([path, module]) => {
+      const relativePath = path.replace("/src/assets/", "");
+      imageMap[relativePath] = module.default;
+    });
+    return imageMap[`${realCategory}/${item.imageId}`];
+  } catch (error) {
+    console.error("图片加载失败:", error);
+  }
+};
+// 深度监听对象prop
+watch(
+  () => route,
+  () => {
+    fetchData();
+  },
+  { deep: true, immediate: true }
+);
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style lang="scss" scoped>
 .swiper {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   transform-style: preserve-3d;
   margin: auto;
   border-radius: 50%;
@@ -128,8 +157,8 @@ const onSlideChange = () => {
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   @include respond-to("sm") {
     width: 300px;
@@ -151,8 +180,14 @@ const onSlideChange = () => {
   border-radius: 50%;
 }
 .detail {
-    .description {
-        padding: 30px 24px 30px 24px;
-    }
+  .description {
+    padding: 30px 24px 30px 24px;
+  }
+}
+:deep(.el-collapse-item__header) {
+  padding: 0 20px;
+}
+:deep(.el-collapse-item__content) {
+  padding: 25px;
 }
 </style>

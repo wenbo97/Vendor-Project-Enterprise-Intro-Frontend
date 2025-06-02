@@ -14,6 +14,7 @@
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import commonList from "@components/commonList/index.vue";
+import { getBeverageQuery } from "@/api/business/index.js";
 const router = useRouter();
 const route = useRoute();
 const loading = ref(false);
@@ -29,68 +30,38 @@ const svg = `
 `;
 const listData = ref([]);
 
-const fetchData = () => {
-  loading.value = true;
-  listData.value = []
-  setTimeout(() => {
-    listData.value = [
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
+const fetchData = async () => {
+  try {
+    const id = route.query.id.toLowerCase()
+    loading.value = true;
+    listData.value = []
+    const params = {
+      condition: {
+        // id: "683bf5ac267e5e62a273c1e8",
+        // item_id: "1",
+        // item_name: "Polar Mint",
+        category: id,
+        // item_name_fuzzy: "mint",
+        // mg_weight_per_box_fuzzy: "12.8mg",
+        // wet_method_fuzzy: "45",
+        // inner_bag_type_fuzzy: "V-notch",
+        // box_type_fuzzy: "tri-fold",
+        // carton_box_fuzzy: "240X3",
+        // quantity_pcs_fuzzy: "720",
+        // category_fuzzy: "kil",
       },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-      {
-        imgUrl:
-          "https://cdn.converty.shop/images/80abcdf2126e444e9c7fea415c0083fca6752c9231e9f9bae6aa060027c74820_lg.webp",
-      },
-    ];
-    // nextTick(() => {
-    //   animationFn()
-    // })
-    loading.value = false;
-  }, 1000);
+      skip: 0,
+      limit: 1000,
+    };
+    const res = await getBeverageQuery(params);
+    listData.value = res.values
+  } catch (error) {
+    console.error(error)
+  }
+  loading.value = false;
 };
 const goDetail = (item) => {
-  router.push({ path: "/detail", query: { id: "123213" } });
+  router.push({ path: "/detail", query: { id: item.id } });
 };
 watch(
   () => route.params,
@@ -100,7 +71,6 @@ watch(
   { deep: true }
 );
 onMounted(() => {
-  console.log(12313);
   fetchData();
 });
 </script>

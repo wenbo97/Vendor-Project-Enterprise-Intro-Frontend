@@ -35,6 +35,12 @@ export default defineConfig({
         changeOrigin: true, // 允许跨域
         rewrite: (path) => path.replace(/^\/AiModel/, ''), // 重写请求路径，去除 /api 前缀
       },
+      // 配置以 /api 开头的请求代理
+      '/api': {
+        target: 'https://api.snusfactorycn.com/api', // 目标服务器地址
+        changeOrigin: true, // 允许跨域
+        rewrite: (path) => path.replace(/^\/api/, ''), // 重写请求路径，去除 /api 前缀
+      },
     },
   },
   css: {

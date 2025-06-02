@@ -7,12 +7,15 @@
         style="width: 30%"
         size="large"
         placeholder="Please Input"
-        :suffix-icon="Search"
-      />
+      >
+        <template #append>
+          <el-button @click="goDetail" :icon="Search" />
+        </template>
+      </el-input>
       <div class="action">
-        <el-icon style="margin: 0 30px 0 0; cursor: pointer"
+        <!-- <el-icon style="margin: 0 30px 0 0; cursor: pointer"
           ><ShoppingCart
-        /></el-icon>
+        /></el-icon> -->
         <el-icon @click="drawer = true" style="cursor: pointer"><Fold /></el-icon>
       </div>
     </div>
@@ -74,6 +77,10 @@ const goMain = () => {
     { path: '/' }
   )
 }
+const goDetail = () => {
+  router.push({ path: "/detail", query: { name: decodeURIComponent(inputText.value) } });
+  inputText.value = ''
+};
 </script>
 
 <style lang="scss" scoped>

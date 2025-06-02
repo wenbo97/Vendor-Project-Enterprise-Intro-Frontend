@@ -2,7 +2,7 @@
   <div class="list-container">
     <ul class="list">
       <li class="list-block" v-for="(item, index) in listData" :key="index">
-        <div class="list-banner">
+        <div class="list-banner"  @click="goDetail(item)">
           <img :src="getImageUrl(item)" alt="" />
           <div class="list-action" @click="goDetail(item)">RAPIDE</div>
         </div>
@@ -56,9 +56,10 @@ const animationFn = () => {
 };
 const getImageUrl = (item) => {
   try {
-    if (!item.documentUrl) {
-      return item.imgUrl
+    if (!item.category) {
+      return item.imageId
     }
+    const realCategory = item.category.toUpperCase()
     const imageModules = import.meta.glob(
       `/src/assets//**/*.{png,jpg,jpeg,gif}`,
       { eager: true }
@@ -68,7 +69,7 @@ const getImageUrl = (item) => {
       const relativePath = path.replace("/src/assets/", "");
       imageMap[relativePath] = module.default;
     });
-    return imageMap[`${item.documentUrl}/${item.imgUrl}.png`];
+    return imageMap[`${realCategory}/${item.imageId}`];
   } catch (error) {
     console.error("图片加载失败:", error);
   }
@@ -130,11 +131,11 @@ watch(
           height: auto;
           margin: auto;
           &:hover {
-            transform: scale(1.05);
-            + .list-action {
-              top: calc(50% - 10px);
-              opacity: 1;
-            }
+            transform: scale(1.1);
+            // + .list-action {
+            //   top: calc(50% - 10px);
+            //   opacity: 1;
+            // }
           }
         }
         .list-action {
@@ -152,10 +153,10 @@ watch(
           border-radius: 20px;
           transition: all 0.5s;
           opacity: 0;
-          &:hover {
-            top: calc(50% - 10px);
-            opacity: 1;
-          }
+          // &:hover {
+          //   top: calc(50% - 10px);
+          //   opacity: 1;
+          // }
         }
       }
     }
