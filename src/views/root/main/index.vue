@@ -13,8 +13,14 @@
         :loop="true"
         class="mySwiper2"
       >
-        <swiper-slide v-for="(item, index) in bannerList" :key="index">
-          <img :src="getImageUrl(item.imgUrl)" />
+        <swiper-slide>
+          <img :src="bannerOne" />
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="bannerTwo" />
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="bannerThree" />
         </swiper-slide>
       </swiper>
       <swiper
@@ -27,8 +33,14 @@
         :loop="true"
         class="mySwiper"
       >
-        <swiper-slide v-for="(item, index) in bannerList" :key="index">
-          <img :src="getImageUrl(item.imgUrl)" />
+        <swiper-slide>
+          <img :src="bannerOne" />
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="bannerTwo" />
+        </swiper-slide>
+        <swiper-slide>
+          <img :src="bannerThree" />
         </swiper-slide>
       </swiper>
     </div>
@@ -38,14 +50,18 @@
       </div>
       <div class="second">
         <div class="second-block">
-          <div  @click="geCategories('KILLA')" class="image" style="margin: 0 0 20px 0">
+          <div
+            @click="geCategories('KILLA')"
+            class="image"
+            style="margin: 0 0 20px 0"
+          >
             <img src="@/assets/preImg/two.webp" alt="" />
           </div>
-          <div  @click="geCategories('VELO_EU')" class="image">
+          <div @click="geCategories('VELO_EU')" class="image">
             <img src="@/assets/preImg/three.webp" alt="" />
           </div>
         </div>
-        <div class="third"  @click="geCategories('ZYN_EU')">
+        <div class="third" @click="geCategories('ZYN_EU')">
           <img src="@/assets/preImg/four.webp" alt="" />
         </div>
       </div>
@@ -72,6 +88,9 @@ import commonList from "@components/commonList/index.vue";
 import { getBeverageQuery } from "@/api/business/index.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import bannerOne from "@/assets/BANNER/background_pablo.png";
+import bannerTwo from "@/assets/BANNER/background_pablo.png";
+import bannerThree from "@/assets/BANNER/background_pablo.png";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
@@ -196,10 +215,10 @@ const fetchData = async () => {
     limit: 12,
   };
   const res = await getBeverageQuery(params);
-  listData.value = res.values
+  listData.value = res.values;
 };
 onMounted(() => {
-  fetchData()
+  fetchData();
 });
 </script>
 
