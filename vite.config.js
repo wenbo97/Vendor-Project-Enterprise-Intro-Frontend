@@ -58,5 +58,18 @@ export default defineConfig({
       '@views': '/src/views',
       '@hljs': path.resolve(__dirname, 'node_modules/highlight.js')
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // 使用 assetsInclude 排除图片文件
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.png')) {
+            return 'images/[name][extname]'; // 不添加 hash，但保持文件名不变
+          }
+          return 'assets/[name]-[hash][extname]'; // 其他资源添加 hash
+        }
+      }
+    }
   }
 })
