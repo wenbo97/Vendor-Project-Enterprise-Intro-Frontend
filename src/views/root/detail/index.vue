@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <div v-if="!loading && detailInfo?.id">
+    <div class="detail-box" v-if="!loading && detailInfo?.id">
       <swiper
         v-if="!loading"
         :effect="'flip'"
@@ -18,23 +18,17 @@
         </swiper-slide>
       </swiper>
       <div class="description">
-        <el-collapse
-          @change="handleChange"
-          :expand-icon-position="position"
-          v-if="!loading"
-        >
-          <el-collapse-item
-            v-for="(item, index) in collapseSets"
-            :key="index"
-            :title="item"
-            :name="item"
-          >
-            <div>
-              {{ detailInfo[item] }}
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-        
+        <p>{{ detailInfo.description }}</p>
+        <ul>
+          <li>
+            <span>mg_weight_per_box</span>
+            <span>{{ detailInfo.mgWeightPerBox }}</span>
+          </li>
+          <li>
+            <span>inner_bag_type</span>
+            <span>{{ detailInfo.innerBagType }}</span>
+          </li>
+        </ul>
       </div>
     </div>
     <el-skeleton v-if="loading" :rows="7" animated />
@@ -96,9 +90,10 @@ const fetchData = async () => {
       limit: 1000,
     };
     const res = await getBeverageQuery(params);
-    const info = res.values[0]
+    const info = res.values[0];
     detailInfo.value = info;
-    collapseSets.value = Object.keys(info || {}) ;
+    console.log(detailInfo.value, "detailInfo.value");
+    collapseSets.value = Object.keys(info || {});
   } catch (error) {
     console.error(error);
   }
@@ -132,25 +127,39 @@ watch(
   },
   { deep: true, immediate: true }
 );
-onMounted(() => {
-  fetchData();
-});
+// onMounted(() => {
+//   fetchData();
+// });
 </script>
 
 <style lang="scss" scoped>
+.detail {
+  .detail-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px;
+    @include respond-to("sm") {
+      display: block;
+    }
+    @include respond-to("msm") {
+      display: block;
+    }
+  }
+}
 .swiper {
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
   transform-style: preserve-3d;
-  margin: auto;
   border-radius: 50%;
   @include respond-to("sm") {
     width: 300px;
     height: 300px;
+    margin: auto;
   }
   @include respond-to("msm") {
     width: 200px;
     height: 200px;
+    margin: auto;
   }
 }
 
@@ -182,6 +191,39 @@ onMounted(() => {
 .detail {
   .description {
     padding: 30px 24px 30px 24px;
+    width: 60%;
+    @include respond-to("sm") {
+      width: 100%;
+      padding: 0;
+    }
+    @include respond-to("msm") {
+      width: 100%;
+      padding: 0;
+    }
+    ul {
+      li {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #333;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(51, 51, 51, 0.25);
+        @include respond-to("sm") {
+          display: block;
+        }
+        @include respond-to("msm") {
+          display: block;
+        }
+        span {
+          @include respond-to("sm") {
+            display: block;
+          }
+          @include respond-to("msm") {
+            display: block;
+          }
+        }
+      }
+    }
   }
 }
 :deep(.el-collapse-item__header) {

@@ -21,7 +21,9 @@
     </div>
    <router-view />
    <div class="footer">
-
+      <p>Contact us</p>
+      <p>Email: info@nicpouch.co.uk</p>
+      <p>Tel: 0330 223 5004</p>
     </div>
    <el-drawer v-model="drawer" title="Catégories">
       <ul class="categories-list">
@@ -120,6 +122,7 @@ const goDetail = () => {
     }
   }
   .footer{
+    padding: 50px;
     height: 300px;
     background: #777777;
   }
