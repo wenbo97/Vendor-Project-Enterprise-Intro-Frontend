@@ -40,6 +40,13 @@ export default defineConfig({
         target: 'https://api.snusfactorycn.com/api', // 目标服务器地址
         changeOrigin: true, // 允许跨域
         rewrite: (path) => path.replace(/^\/api/, ''), // 重写请求路径，去除 /api 前缀
+        configure: (proxy, options) => {
+          // 自定义代理请求处理
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            // 修改 Origin 头为目标服务器的域名
+            proxyReq.setHeader('Origin', 'https://api.snusfactorycn.com');
+          });
+        },
       },
     },
   },
