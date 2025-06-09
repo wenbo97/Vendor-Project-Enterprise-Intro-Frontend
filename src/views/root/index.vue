@@ -52,20 +52,20 @@ const categoriesListData = ref([
     value:"PABLO"
   },
   {
-    label:"VELO_EU",
-    value:"VELO_EU"
+    label:"VELO EU",
+    value:"VELO EU"
   },
   {
-    label:"VELO_EU_v2",
-    value:"VELO_EU_v2"
+    label:"VELO EU v2",
+    value:"VELO EU v2"
   },
   {
-    label:"VELO_US",
-    value:"VELO_US"
+    label:"VELO US",
+    value:"VELO US"
   },
   {
-    label:"ZYN_EU",
-    value:"ZYN_EU"
+    label:"ZYN EU",
+    value:"ZYN EU"
   }
 ])
 const goCategories = (item) => {

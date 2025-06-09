@@ -2,19 +2,42 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import fs from 'fs';
 import path from 'path';
-
+import glob from 'fast-glob'; 
 // 读取 highlight.js 语言模块路径（Node.js 环境）
 const highlightLangDir = path.resolve(
   __dirname,
   'node_modules/highlight.js/lib/languages'
 );
-console.log(highlightLangDir, 'highlightLangDir')
 const languageFiles = fs
   .readdirSync(highlightLangDir)
   .filter((file) => file.endsWith('.js'))
   .map((file) => `highlight.js/lib/languages/${file}`);
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    {
+      name: 'generate-sitemap.json',
+      apply: 'build',
+      closeBundle() {
+         // 获取所有 .vue 文件
+        const vueFiles = glob.sync('src/**/*.vue');
+        console.log(vueFiles,'vueFiles')
+        const routes = vueFiles.reduce((acc, file) => {
+          if(file.includes('src/views/root')){
+            const path = file
+              .replace('src/views/root', '')
+              .replace('/index.vue', '')
+              .toLowerCase();
+            const lastPath = path ? path : '/';
+            acc.push(lastPath);
+          }
+          return acc;
+        }, []);
+        const outPath = path.resolve(__dirname, 'dist/sitemap-routes.json')
+        fs.writeFileSync(outPath, JSON.stringify(routes, null, 2))
+      }
+    }
+  ],
   optimizeDeps: {
     include: [
       'highlight.js',
@@ -63,6 +86,7 @@ export default defineConfig({
       '@': '/src',
       '@components': '/src/components',
       '@views': '/src/views',
+      '@utils': '/src/utils',
       '@hljs': path.resolve(__dirname, 'node_modules/highlight.js')
     }
   },
