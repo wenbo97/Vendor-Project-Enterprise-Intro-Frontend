@@ -5,9 +5,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { router, initRoutes } from './router';
 import { directives } from './directive/index.js'; // 导入所有指令
+import { useDevToolsDebugger } from '@/utils/useDevToolsDebugger';
 const initApp = async () => {
   await initRoutes();
   const app = createApp(App);
+  
   app.use(router);
   app.use(ElementPlus);
   // 批量注册指令
@@ -19,3 +21,4 @@ const initApp = async () => {
 };
 
 initApp(); 
+useDevToolsDebugger()
