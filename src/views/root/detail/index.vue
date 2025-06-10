@@ -45,6 +45,7 @@
             <span>{{ detailInfo.boxType }}</span>
           </li>
         </ul>
+        <el-button type="primary" @click="goto">goto</el-button>
       </div>
     </div>
     <el-skeleton v-if="loading" :rows="7" animated />
@@ -136,6 +137,10 @@ const getImageUrl = (item) => {
     console.error("图片加载失败:", error);
   }
 };
+const goto = () => {
+  // 打开新窗口并加载指定 URL
+  window.open('https://baidu.com');
+}
 // 深度监听对象prop
 watch(
   () => route,
