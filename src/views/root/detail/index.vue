@@ -21,12 +21,28 @@
         <p>{{ detailInfo.description }}</p>
         <ul>
           <li>
-            <span>mg_weight_per_box</span>
-            <span>{{ detailInfo.mgWeightPerBox }}</span>
+            <span>Product Name</span>
+            <span>{{ detailInfo.itemName }}</span>
           </li>
           <li>
-            <span>inner_bag_type</span>
-            <span>{{ detailInfo.innerBagType }}</span>
+            <span>Category</span>
+            <span>{{ detailInfo.category }}</span>
+          </li>
+          <li>
+            <span>Strength</span>
+            <span>{{ detailInfo.itemStrength }}</span>
+          </li>
+          <li>
+            <span>Pouch Size</span>
+            <span>{{ detailInfo.itemSize }}</span>
+          </li>
+          <li>
+            <span>Moisture Content</span>
+            <span>{{ detailInfo.wetMethod }}</span>
+          </li>
+          <li>
+            <span>Box Type</span>
+            <span>{{ detailInfo.boxType }}</span>
           </li>
         </ul>
       </div>
@@ -114,6 +130,7 @@ const getImageUrl = (item) => {
       const relativePath = path.replace("/src/assets/", "");
       imageMap[relativePath] = module.default;
     });
+    
     return imageMap[`${realCategory}/${item.imageId}`];
   } catch (error) {
     console.error("图片加载失败:", error);
