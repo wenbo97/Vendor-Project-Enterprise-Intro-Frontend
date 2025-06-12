@@ -168,9 +168,15 @@ watch(
     }
     .list-nection {
       p {
+        
         cursor: pointer;
         text-align: center;
         font-weight: 600;
+        display: inline-block;
+        width: 80%;
+        white-space: nowrap;     /* 禁止文本换行 */
+        overflow: hidden;        /* 超出部分隐藏 */
+        text-overflow: ellipsis;
         &:hover{
           color: #ff8210;
         }

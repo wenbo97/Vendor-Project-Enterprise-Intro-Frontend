@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <div class="header">
-      <div class="header-home">
-        <el-icon size="20px" class="img" @click="goMain"><HomeFilled /></el-icon>
+      <div class="header-home" @click="goMain">
+        <el-icon size="20px" class="img"><HomeFilled /></el-icon>
         <span>Home</span>
       </div>
       
