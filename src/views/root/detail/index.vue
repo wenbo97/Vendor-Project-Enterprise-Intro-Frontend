@@ -92,9 +92,9 @@ const fetchData = async () => {
       condition: {
         id: id,
         // item_id: id,
-        item_name: itemName,
+        // item_name: itemName,
         // category: id,
-        // item_name_fuzzy: "mint",
+        item_name_fuzzy: itemName,
         // mg_weight_per_box_fuzzy: "12.8mg",
         // wet_method_fuzzy: "45",
         // inner_bag_type_fuzzy: "V-notch",
