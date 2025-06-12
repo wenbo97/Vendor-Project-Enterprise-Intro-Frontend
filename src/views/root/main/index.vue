@@ -19,9 +19,9 @@
         <swiper-slide>
           <img :src="bannerTwo" />
         </swiper-slide>
-        <swiper-slide>
+        <!-- <swiper-slide>
           <img :src="bannerThree" />
-        </swiper-slide>
+        </swiper-slide> -->
       </swiper>
       <swiper
         @swiper="setThumbsSwiper"
@@ -39,9 +39,9 @@
         <swiper-slide>
           <img :src="bannerTwo" />
         </swiper-slide>
-        <swiper-slide>
+        <!-- <swiper-slide>
           <img :src="bannerThree" />
-        </swiper-slide>
+        </swiper-slide> -->
       </swiper>
     </div>
     <div class="categories">
@@ -107,9 +107,9 @@ import commonList from "@components/commonList/index.vue";
 import { getBeverageQuery } from "@/api/business/index.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import bannerOne from "@/assets/BANNER/background_pablo.png";
-import bannerTwo from "@/assets/BANNER/background_pablo.png";
-import bannerThree from "@/assets/BANNER/background_pablo.png";
+import bannerOne from "@/assets/BANNER/banner1.webp";
+import bannerTwo from "@/assets/BANNER/banner2.webp";
+// import bannerThree from "@/assets/BANNER/background_zyn.png";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";

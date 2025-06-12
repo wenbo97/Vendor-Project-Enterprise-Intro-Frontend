@@ -1,7 +1,11 @@
 <template>
   <div class="main">
     <div class="header">
-      <el-icon size="20px" class="img" @click="goMain"><HomeFilled /></el-icon>
+      <div class="header-home">
+        <el-icon size="20px" class="img" @click="goMain"><HomeFilled /></el-icon>
+        <span>Home</span>
+      </div>
+      
       <el-input
         v-model="inputText"
         style="width: 30%"
@@ -39,6 +43,7 @@
         </li>
       </ul>
     </el-drawer>
+    <img @click="goto" class="whatsapp" src="@/assets/BANNER/whatsapp.webp" alt="">
   </div>
 </template>
 
@@ -101,23 +106,29 @@ const goto = () => {
     padding: 0;
   }
   :deep(.el-drawer__header) {
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
   }
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     min-height: 80px;
-    background: #fff;
+    background: #ffc18e;
     padding: 0 20px;
     @media screen and (max-width: 768px) {
       min-height: 60px;
     }
     .img {
       cursor: pointer;
+      margin: 0 10px 0 0;
     }
     .action {
       font-size: 20px;
+    }
+    .header-home{
+      display: flex;
+      align-items: center;
+      cursor: pointer;
     }
   }
   .categories-list {
@@ -139,6 +150,13 @@ const goto = () => {
         color: rgba(0, 0, 0, 0.9);
       }
     }
+  }
+  .whatsapp {
+    position: fixed;
+    width: 56px;
+    height: 56px;
+    bottom: 30px;
+    right: 30px;
   }
 }
 </style>

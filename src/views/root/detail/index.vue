@@ -257,6 +257,12 @@ watch(
       display: block;
       width: 80%;
       margin: 10px auto;
+      background: #ff8210;
+      border: none;
+      border-radius: 50px;
+      &:hover {
+        background: #794114;
+      }
     }
   }
 }
