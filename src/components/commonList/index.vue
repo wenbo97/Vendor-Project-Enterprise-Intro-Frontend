@@ -7,7 +7,7 @@
           <div class="list-action" @click="goDetail(item)">RAPIDE</div>
         </div>
         <div class="list-nection">
-          <p style="text-align: center">{{item.itemName}}</p>
+          <p>{{item.itemName}}</p>
         </div>
       </li>
     </ul>
@@ -103,7 +103,7 @@ watch(
       transform: translateY(50px);
       opacity: 0;
       visibility: hidden;
-      height: 270px;
+      height: 290px;
       width: 25%;
 
       @include respond-to("sm") {
@@ -165,6 +165,16 @@ watch(
       transform: translateY(0);
       opacity: 1;
       visibility: visible;
+    }
+    .list-nection {
+      p {
+        cursor: pointer;
+        text-align: center;
+        font-weight: 600;
+        &:hover{
+          color: #ff8210;
+        }
+      }
     }
   }
 }
