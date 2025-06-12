@@ -89,6 +89,7 @@ watch(
 
 <style lang="scss" scoped>
 .list-container {
+  margin: 20px 0;
   .list {
     display: flex;
     align-items: center;
