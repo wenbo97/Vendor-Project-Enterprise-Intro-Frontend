@@ -68,9 +68,10 @@
     </div>
     <div class="tendeces-title">
       <span class="line"></span>
-      <span style="margin: 0 32px 0">tendeces</span>
+      <span style="margin: 0 32px 0">Nicotine Pouches</span>
       <span class="line"></span>
     </div>
+
     <commonList
       v-loading="loading"
       element-loading-svg-view-box="-10, -10, 50, 50"
@@ -78,6 +79,24 @@
       :listData="listData"
       @goDetail="goDetail"
     />
+    <div v-if="more" class="load-more-button"  @click="more = false">
+      <span>More</span>
+      <div class="arrow-container">
+        <svg
+          class="arrow"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -97,6 +116,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 const router = useRouter();
 const loading = ref(false);
+const more = ref(true)
 const thumbsSwiper = ref(null);
 const modules = [FreeMode, Navigation, Thumbs];
 const svg = `
@@ -448,6 +468,83 @@ onMounted(() => {
       transform: translateY(0);
       opacity: 1;
       visibility: visible;
+    }
+  }
+  .load-more-button {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    padding: 10px;
+    transition: color 0.3s ease;
+    margin: 16px auto;
+    position: relative;
+  }
+
+  .load-more-button:hover:not(:disabled) {
+    color: #2563eb;
+  }
+
+  .load-more-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .arrow-container {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .load-more-button:hover:not(:disabled) .arrow-container {
+    animation: bounce 1s infinite;
+  }
+
+  .load-more-button:disabled .arrow-container {
+    animation: spin 1.5s linear infinite;
+  }
+
+  .arrow {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(5px);
+    }
+    60% {
+      transform: translateY(3px);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
