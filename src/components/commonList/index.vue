@@ -7,8 +7,7 @@
           <div class="list-action" @click="goDetail(item)">RAPIDE</div>
         </div>
         <div class="list-nection">
-          <p>garant extreme</p>
-          <p>50.00 DT</p>
+          <p style="text-align: center">{{item.itemName}}</p>
         </div>
       </li>
     </ul>
@@ -104,7 +103,7 @@ watch(
       transform: translateY(50px);
       opacity: 0;
       visibility: hidden;
-      min-height: 270px;
+      height: 270px;
       width: 25%;
 
       @include respond-to("sm") {
@@ -117,6 +116,7 @@ watch(
         position: relative;
         overflow: hidden;
         cursor: pointer;
+        height: 90%;
         img {
           display: block;
           background-size: cover;

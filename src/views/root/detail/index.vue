@@ -45,7 +45,7 @@
             <span>{{ detailInfo.boxType }}</span>
           </li>
         </ul>
-        <el-button type="primary" @click="goto">goto</el-button>
+        <el-button class="goto" type="primary" @click="goto(detailInfo)">Contact Us for Details</el-button>
       </div>
     </div>
     <el-skeleton v-if="loading" :rows="7" animated />
@@ -56,7 +56,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { getBeverageQuery } from "@/api/business/index.js";
+import { getBeverageQuery, getContactQuery } from "@/api/business/index.js";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 
@@ -137,9 +137,16 @@ const getImageUrl = (item) => {
     console.error("图片加载失败:", error);
   }
 };
-const goto = () => {
+const goto = async (item) => {
+  try {
+    console.log(item)
+    window.open(`https://api.snusfactorycn.com/api/contact/${item.id}`);
+    // const res = await getContactQuery(item.id)
+  } catch (error) {
+    console.error(error)
+  }
   // 打开新窗口并加载指定 URL
-  window.open('https://baidu.com');
+  // window.open('https://baidu.com');
 }
 // 深度监听对象prop
 watch(
@@ -245,6 +252,11 @@ watch(
           }
         }
       }
+    }
+    .goto{
+      display: block;
+      width: 80%;
+      margin: 10px auto;
     }
   }
 }

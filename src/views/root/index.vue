@@ -23,7 +23,7 @@
    <div class="footer">
       <p>Contact us</p>
       <p>Email: info@nicpouch.co.uk</p>
-      <p>Tel: 0330 223 5004</p>
+      <p>whatsapp phone:+86 177 7421 8622</p>
     </div>
    <el-drawer v-model="drawer" title="Catégories">
       <ul class="categories-list">
@@ -124,7 +124,13 @@ const goDetail = () => {
   .footer{
     padding: 50px;
     height: 300px;
-    background: #777777;
+    background: rgba(211, 211, 211, 1);
+    p{
+      cursor: pointer;
+      &:hover{
+        color: rgba(0, 0, 0, 0.90)
+      }
+    }
   }
 }
 </style>
