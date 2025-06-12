@@ -22,7 +22,6 @@
    <router-view />
    <div class="footer">
       <p>Contact us</p>
-      <p>Email: info@nicpouch.co.uk</p>
       <p>whatsapp phone:+86 177 7421 8622</p>
     </div>
    <el-drawer v-model="drawer" title="Catégories">
