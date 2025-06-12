@@ -21,6 +21,11 @@ const test = [
         "path": "categories",
         "name": "categories",
         "permission": true,
+      },
+      {
+        "path": "list",
+        "name": "list",
+        "permission": true,
       }
     ]
   },

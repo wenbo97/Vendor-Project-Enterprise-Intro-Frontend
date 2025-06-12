@@ -11,9 +11,10 @@
         style="width: 30%"
         size="large"
         placeholder="Please Input"
+        @keydown.enter="goList"
       >
         <template #append>
-          <el-button @click="goDetail" :icon="Search" />
+          <el-button @click="goList" :icon="Search" />
         </template>
       </el-input>
       <div class="action">
@@ -91,6 +92,13 @@ const goMain = () => {
 const goDetail = () => {
   router.push({
     path: "/detail",
+    query: { name: decodeURIComponent(inputText.value) },
+  });
+  inputText.value = "";
+};
+const goList = () => {
+  router.push({
+    path: "/list",
     query: { name: decodeURIComponent(inputText.value) },
   });
   inputText.value = "";
