@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <div class="bg">
+    <!-- <div class="bg">
       <swiper
         :style="{
           '--swiper-navigation-color': '#fff',
@@ -19,9 +19,6 @@
         <swiper-slide>
           <img :src="bannerTwo" />
         </swiper-slide>
-        <!-- <swiper-slide>
-          <img :src="bannerThree" />
-        </swiper-slide> -->
       </swiper>
       <swiper
         @swiper="setThumbsSwiper"
@@ -39,10 +36,84 @@
         <swiper-slide>
           <img :src="bannerTwo" />
         </swiper-slide>
-        <!-- <swiper-slide>
-          <img :src="bannerThree" />
-        </swiper-slide> -->
       </swiper>
+    </div> -->
+    <div class="header">
+      <p class="header-title">ABOUT SWENICO</p>
+      <p class="header-nection">
+        Swenico is a wholesale B2B supplier of nicotine pouches based in Sweden.
+        Founded in 2023, we have already established ourselves as a trusted
+        go-to partner for all nicotine pouch needs for stores, boutiques,
+        restaurants, e-commerce stores, and many more. We offer a vast selection
+        of nicotine pouches to resellers and distributors all around the world
+        and ship worldwide.
+      </p>
+      <p class="header-nection">
+        Our large selection of nicotine pouches and competitive wholesale
+        pricing has made us a leading supplier and a trusted partner in the
+        distribution chain.
+      </p>
+      <p class="header-nection">
+        Discover new products from ZYN, VELO, XQS, and many other exciting
+        brands in the nicotine pouch world.
+      </p>
+    </div>
+    <div class="header-section">
+      <p class="header-section-title">ZYN Wholesale</p>
+      <div class="header-section-qa">
+        <p>Get a Quote Today!</p>
+        <p>
+          Ready to place a wholesale order? Contact us now at info@zyn-shop.com
+          for an exclusive quote and personalized assistance!
+        </p>
+      </div>
+      <div class="header-section-qa">
+        <p>Bulk Order Details：</p>
+        <p>
+          For wholesale orders of 2000pcs or more, we offer exclusive discounts
+          and flexible shipping options. Our team is here to assist you with
+          custom orders, payment methods, and delivery details. Contact us today
+          to receive a personalized quote and further information on bulk
+          purchases.
+        </p>
+      </div>
+      <div class="header-section-qa-list">
+        <p>Why Choose ZYN Wholesale?</p>
+        <ul>
+          <li>
+            <span class="roud"></span>
+            <span class="title">Premium Quality：</span>
+            <span
+              >We only offer high-quality, tobacco-free nicotine pouches that
+              your customers will love.</span
+            >
+          </li>
+          <li>
+            <span class="roud"></span>
+            <span class="title">Fast Shipping：</span>
+            <span
+              >Get your orders delivered quickly with our efficient
+              logistics.</span
+            >
+          </li>
+          <li>
+            <span class="roud"></span>
+            <span class="title">Flexible Payments：</span>
+            <span
+              >We offer multiple payment options to make bulk ordering easy and
+              convenient.</span
+            >
+          </li>
+          <li>
+            <span class="roud"></span>
+            <span class="title">Dedicated Support：</span>
+            <span
+              >Our team is here to provide personalized assistance and ensure a
+              smooth ordering process.</span
+            >
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="categories">
       <div class="once" @click="geCategories('PABLO')">
@@ -79,7 +150,7 @@
       :listData="listData"
       @goDetail="goDetail"
     />
-    <div v-if="more" class="load-more-button"  @click="more = false">
+    <div v-if="more" class="load-more-button" @click="more = false">
       <span>More</span>
       <div class="arrow-container">
         <svg
@@ -116,7 +187,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 const router = useRouter();
 const loading = ref(false);
-const more = ref(true)
+const more = ref(true);
 const thumbsSwiper = ref(null);
 const modules = [FreeMode, Navigation, Thumbs];
 const svg = `
@@ -244,6 +315,91 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .chat-container {
+  .header {
+    padding: 0 15px;
+    text-align: center;
+    margin: 40px 0 0;
+    .header-title {
+      color: #ff8210;
+      text-align: center;
+      font-weight: bold;
+      font-size: 32px;
+      @include respond-to("sm") {
+        font-size: 20px;
+      }
+      @include respond-to("md") {
+        // font-size: 20px;
+        font-size: 32px;
+      }
+    }
+    .header-nection {
+      max-width: calc(1140px - 30px);
+      margin: 40px auto;
+      .header-section-title {
+        color: #ff8210;
+        text-align: center;
+        font-weight: bold;
+        font-size: 32px;
+        @include respond-to("sm") {
+          font-size: 20px;
+        }
+        @include respond-to("md") {
+          // font-size: 20px;
+          font-size: 32px;
+        }
+      }
+    }
+  }
+  .header-section {
+    max-width: calc(1140px - 30px);
+    padding: 0 15px;
+    margin: 40px auto;
+    .header-section-title {
+      color: #ff8210;
+      text-align: center;
+      font-weight: bold;
+      font-size: 32px;
+      @include respond-to("sm") {
+        font-size: 20px;
+      }
+      @include respond-to("md") {
+        // font-size: 20px;
+        font-size: 32px;
+      }
+    }
+    .header-section-qa{
+      margin: 0 0 40px;
+      > p{
+        &:first-child{
+          font-weight: bold;
+        }
+      }
+    }
+    .header-section-qa-list{
+      > p{
+        font-weight: bold;
+      }
+      > ul {
+        li {
+          display: flex;
+          align-items: center;
+          margin: 20px 0;;
+          .roud{
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: #000;
+            border-radius: 50%;
+            margin: 0 10px 0 0;
+          }
+          .title{
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  
   .bg {
     width: 100%;
     height: 600px;
