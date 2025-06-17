@@ -18,36 +18,70 @@
         </swiper-slide>
       </swiper>
       <div class="description">
-        <p>{{ detailInfo.description }}</p>
+        <p>{{ detailInfo.itemDescription }}</p>
         <ul>
-          <li>
+          <!-- <li>
             <span>Product Name</span>
             <span>{{ detailInfo.itemName }}</span>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <span>Category</span>
             <span>{{ detailInfo.category }}</span>
-          </li>
+          </li> -->
           <li>
             <span>Strength</span>
             <span>{{ detailInfo.itemStrength }}</span>
           </li>
           <li>
+            <span>flavour</span>
+            <span>{{ detailInfo.itemFlavour }}</span>
+          </li>
+          <li>
+            <span>Format</span>
+            <span>{{ detailInfo.itemFormat }}</span>
+          </li>
+          <!-- <li>
             <span>Pouch Size</span>
             <span>{{ detailInfo.itemSize }}</span>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <span>Moisture Content</span>
             <span>{{ detailInfo.wetMethod }}</span>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <span>Box Type</span>
             <span>{{ detailInfo.boxType }}</span>
-          </li>
+          </li> -->
         </ul>
-        <el-button class="goto" type="primary" @click="goto(detailInfo)">Contact Us for Details</el-button>
+        <el-button class="goto" type="primary" @click="goto(detailInfo)"
+          >Contact Us for Details</el-button
+        >
       </div>
     </div>
+    <el-divider />
+    <div class="no-important" v-if="!loading && detailInfo?.id">
+      
+      <el-collapse v-model="activeNames" style="margin: 30px 0 0 0">
+        <el-collapse-item title="Product Name" name="1">
+          <div>{{ detailInfo.itemName }}</div>
+        </el-collapse-item>
+        <el-collapse-item title="Category" name="2">
+          <div>
+            {{ detailInfo.category }}
+          </div>
+        </el-collapse-item>
+        <el-collapse-item title="Pouch Size" name="3">
+          <div>{{ detailInfo.itemSize }}</div>
+        </el-collapse-item>
+        <el-collapse-item title="Moisture Content" name="4">
+          <div>{{ detailInfo.wetMethod }}</div>
+        </el-collapse-item>
+        <el-collapse-item title="Box Type" name="5">
+          {{ detailInfo.boxType }}
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+
     <el-skeleton v-if="loading" :rows="7" animated />
     <el-empty v-if="!loading && !detailInfo?.id" :image-size="200" />
   </div>
@@ -75,6 +109,7 @@ const route = useRoute();
 const loading = ref(false);
 const detailInfo = ref({});
 const collapseSets = ref([]);
+const activeNames = ref('')
 const onSwiper = (swiper) => {
   console.log(swiper);
 };
@@ -123,7 +158,7 @@ const getImageUrl = (item) => {
     }
     const realCategory = item.category.toUpperCase();
     const imageModules = import.meta.glob(
-      `/src/assets//**/*.{png,jpg,jpeg,gif}`,
+      `/src/assets//**/*.{png,jpg,jpeg,gif,webp}`,
       { eager: true }
     );
     const imageMap = {};
@@ -131,7 +166,7 @@ const getImageUrl = (item) => {
       const relativePath = path.replace("/src/assets/", "");
       imageMap[relativePath] = module.default;
     });
-    
+
     return imageMap[`${realCategory}/${item.imageId}`];
   } catch (error) {
     console.error("图片加载失败:", error);
@@ -139,15 +174,15 @@ const getImageUrl = (item) => {
 };
 const goto = async (item) => {
   try {
-    console.log(item)
+    console.log(item);
     window.open(`https://api.snusfactorycn.com/api/contact/${item.id}`);
     // const res = await getContactQuery(item.id)
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
   // 打开新窗口并加载指定 URL
   // window.open('https://baidu.com');
-}
+};
 // 深度监听对象prop
 watch(
   () => route,
@@ -173,6 +208,9 @@ watch(
     @include respond-to("msm") {
       display: block;
     }
+  }
+  .no-important {
+    padding: 0 60px 60px;
   }
 }
 .swiper {
@@ -253,7 +291,7 @@ watch(
         }
       }
     }
-    .goto{
+    .goto {
       display: block;
       width: 80%;
       margin: 10px auto;

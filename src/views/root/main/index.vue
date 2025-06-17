@@ -54,7 +54,7 @@
         distribution chain.
       </p>
       <p class="header-nection">
-        Discover new products from ZYN, VELO, XQS, and many other exciting
+        Discover new products from ZYN, VELO, FOX, PABLO, KILLA, and many other exciting
         brands in the nicotine pouch world.
       </p>
     </div>

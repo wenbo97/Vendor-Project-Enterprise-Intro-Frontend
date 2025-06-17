@@ -60,7 +60,7 @@ const getImageUrl = (item) => {
     }
     const realCategory = item.category.toUpperCase()
     const imageModules = import.meta.glob(
-      `/src/assets//**/*.{png,jpg,jpeg,gif}`,
+      `/src/assets//**/*.{png,jpg,jpeg,gif,webp}`,
       { eager: true }
     );
     const imageMap = {};
