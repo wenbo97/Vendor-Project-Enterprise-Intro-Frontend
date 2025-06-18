@@ -128,11 +128,11 @@
           >
             <img src="@/assets/preImg/two.webp" alt="" />
           </div>
-          <div @click="geCategories('VELO_EU')" class="image">
+          <div @click="geCategories('VELO EU')" class="image">
             <img src="@/assets/preImg/three.webp" alt="" />
           </div>
         </div>
-        <div class="third" @click="geCategories('ZYN_EU')">
+        <div class="third" @click="geCategories('ZYN EU')">
           <img src="@/assets/preImg/four.webp" alt="" />
         </div>
       </div>
