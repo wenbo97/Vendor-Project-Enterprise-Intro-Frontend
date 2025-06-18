@@ -81,6 +81,10 @@ const categoriesListData = ref([
     label: "ZYN EU",
     value: "ZYN EU",
   },
+  {
+    label: "FOX",
+    value: "FOX",
+  },
 ]);
 const goCategories = (item) => {
   router.push({ path: "/categories", query: { id: item.value } });
